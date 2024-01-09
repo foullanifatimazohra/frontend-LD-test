@@ -1,9 +1,14 @@
-import { Input } from "@mui/material";
+import TextField from "./components/text-field/TextField";
+import SearchIcon from "@mui/icons-material/Search";
 
 function App() {
   return (
     <>
-      <Input />
+      <TextField
+        placeholder="Search..."
+        icon={<SearchIcon />}
+        error="display error text"
+      />
     </>
   );
 }
