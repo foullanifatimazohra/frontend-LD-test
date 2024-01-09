@@ -1,13 +1,17 @@
 import TextField from "./components/text-field/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
 
 function App() {
+  const [searchValue, setSearchValue] = useState<string>("");
+
   return (
     <>
       <TextField
         placeholder="Search..."
         icon={<SearchIcon />}
-        error="display error text"
+        value={searchValue}
+        setValue={setSearchValue}
       />
     </>
   );

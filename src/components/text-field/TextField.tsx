@@ -6,12 +6,27 @@ interface TextFieldProps {
   placeholder: string;
   icon?: JSX.Element;
   error?: string;
+  type?: string | "text";
+  value: string | "";
+  setValue: (value: string) => void;
 }
 
-const TextField = ({ placeholder, icon, error }: TextFieldProps) => {
+const TextField = ({
+  placeholder,
+  icon,
+  error,
+  type,
+  value,
+  setValue,
+}: TextFieldProps) => {
   return (
     <Box display="flex" flexDirection="column">
       <MUIInput
+        type={type}
+        value={value}
+        onChange={(e) => {
+          if (setValue) setValue(e.target.value);
+        }}
         sx={{
           borderRadius: "4px",
           border: "1px solid #B5BBC8",
@@ -25,7 +40,7 @@ const TextField = ({ placeholder, icon, error }: TextFieldProps) => {
         }}
         placeholder={placeholder}
         startAdornment={
-          icon ? <InputAdornment position={"start"}>{icon}</InputAdornment> : ""
+          icon ? <InputAdornment position="start">{icon}</InputAdornment> : ""
         }
       />
       {error ? (
