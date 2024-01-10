@@ -14,11 +14,11 @@ export const Table = ({ data, head }: { data: PokemonType[]; head?: any }) => {
       <MUITable sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#F5F7F8" }}>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            {head.map((headData: string, i: number) => (
+              <TableCell key={i} align="center">
+                {headData}
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>

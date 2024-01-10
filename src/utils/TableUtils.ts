@@ -1,5 +1,7 @@
-export const getTableHead = (firstRow: any) => {
-  if (!firstRow.length) {
+import { PokemonType } from "../types/Pokemon";
+
+export const getTableHead: string[] = (firstRow: PokemonType) => {
+  if (!firstRow.id) {
     return [];
   } else {
     const keys = Object.keys(firstRow);

@@ -18,7 +18,7 @@ export const Row = ({
       key={id}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
-      <TableCell align="left">{id}</TableCell>
+      <TableCell align="center">{id}</TableCell>
       <TableCell align="center">{name}</TableCell>
       <TableCell align="center">{type.join(",")}</TableCell>
       <TableCell align="center">{hp}</TableCell>
