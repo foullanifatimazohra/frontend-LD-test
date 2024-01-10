@@ -1,18 +1,6 @@
 import TableCell from "@mui/material/TableCell";
-
 import TableRow from "@mui/material/TableRow";
-
-export interface RowProps {
-  id: number;
-  name: string;
-  type: string[];
-  hp: number;
-  attack: number;
-  defense: number;
-  special_attack: number;
-  special_defense: number;
-  speed: number;
-}
+import { PokemonType } from "../../types/Pokemon";
 
 export const Row = ({
   id,
@@ -24,7 +12,7 @@ export const Row = ({
   special_attack,
   special_defense,
   speed,
-}: RowProps) => {
+}: PokemonType) => {
   return (
     <TableRow
       key={id}
