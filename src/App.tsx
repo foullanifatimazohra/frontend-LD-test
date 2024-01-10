@@ -4,9 +4,18 @@ import { useState } from "react";
 import { NoData } from "./components/table/NoData";
 import { Table } from "./components/table/Table";
 import { Spinner } from "./components/spinner/Spinner";
+import { useEffect } from "react";
+
+import { getPokemonData } from "./services/PokemonService";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
+  useEffect(() => {
+    async () => {
+      const data = await getPokemonData();
+      console.log(data);
+    };
+  }, []);
 
   return (
     <>
