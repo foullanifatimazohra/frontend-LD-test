@@ -19,7 +19,6 @@ export const PaginationBar = ({
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-    console.log("new page", newPage);
     setCurrentPage(newPage);
   };
 

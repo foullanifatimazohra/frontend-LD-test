@@ -7,8 +7,8 @@ interface TextFieldProps {
   icon?: JSX.Element;
   error?: string;
   type?: string | "text";
-  value: string | "";
-  setValue: (value: string) => void;
+  value: any;
+  setValue: (value: any) => void;
 }
 
 const TextField = ({
