@@ -1,6 +1,6 @@
 import { PokemonType } from "../types/Pokemon";
 
-export const getTableHead: string[] = (firstRow: PokemonType) => {
+export const getTableHead = (firstRow: PokemonType) => {
   if (!firstRow.id) {
     return [];
   } else {
