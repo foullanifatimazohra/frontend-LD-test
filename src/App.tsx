@@ -10,6 +10,7 @@ import { getPokemonData } from "./services/PokemonService";
 import { PaginationBar } from "./components/table/PaginationBar";
 import { PokemonType } from "./types/Pokemon";
 import { getTableHead } from "./utils/TableUtils";
+import { calculatePower } from "./utils/calculatePower";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -32,7 +33,13 @@ function App() {
           if (headKeys) {
             setTableHead(headKeys);
           }
-          setPokemonData(data);
+          const pokemonDataWithPower: PokemonType[] = data.map(
+            (pokemon: PokemonType) => {
+              return { ...pokemon, power: calculatePower(pokemon) };
+            }
+          );
+
+          setPokemonData(pokemonDataWithPower);
         }
       } finally {
         setLoading(false);
