@@ -1,4 +1,4 @@
-import DataUsageIcon from "@mui/icons-material/DataUsage";
+import { Box, CircularProgress } from "@mui/material";
 import { indigo } from "@mui/material/colors";
 
 interface SpinnerProps {
@@ -9,12 +9,20 @@ interface SpinnerProps {
 
 export const Spinner = ({ width, height, color }: SpinnerProps) => {
   return (
-    <DataUsageIcon
-      sx={{
-        width: width ?? "40px",
-        height: height ?? "40px",
-        fill: color ?? indigo[500],
-      }}
-    />
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      height="20rem"
+    >
+      <CircularProgress
+        sx={{
+          width: width ?? "40px",
+          height: height ?? "40px",
+          color: color ?? indigo[500],
+        }}
+      />
+    </Box>
   );
 };

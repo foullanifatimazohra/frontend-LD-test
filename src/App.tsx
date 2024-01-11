@@ -18,7 +18,9 @@ function App() {
   const [tableHead, setTableHead] = useState<string[]>();
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  // add loading state
+  const [loading, setLoading] = useState<Boolean>(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +35,7 @@ function App() {
           setPokemonData(data);
         }
       } finally {
-        //Todo : add loading state
+        setLoading(false);
       }
     };
     fetchData();
@@ -58,7 +60,9 @@ function App() {
         value={searchValue}
         setValue={setSearchValue}
       />
-      {!pokemonDataPerPage?.length ? (
+      {loading ? (
+        <Spinner />
+      ) : !pokemonDataPerPage?.length ? (
         <NoData />
       ) : (
         <>
@@ -72,8 +76,6 @@ function App() {
           />
         </>
       )}
-
-      <Spinner />
     </>
   );
 }
