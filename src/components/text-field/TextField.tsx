@@ -28,7 +28,7 @@ const TextField = ({
           if (setValue) setValue(e.target.value);
         }}
         sx={{
-          borderRadius: "4px",
+          borderRadius: "12px",
           border: "1px solid #B5BBC8",
           background: "white",
           padding: "5px 10px",
