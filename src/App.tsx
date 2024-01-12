@@ -1,18 +1,21 @@
 import TextField from "./components/text-field/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
-import { NoData } from "./components/table/NoData";
+
 import { Table } from "./components/table/Table";
-import { Spinner } from "./components/spinner/Spinner";
+import { Grid } from "@mui/material";
+import { Paper } from "@mui/material";
 
 import WindPowerIcon from "@mui/icons-material/WindPower";
 import { PaginationBar } from "./components/table/PaginationBar";
 
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import useFetchData from "./hooks/useFetchData";
 import useFilterData from "./hooks/useFilterData";
 import usePaginationData from "./hooks/usePaginationData";
 import useCalculatePowerRange from "./hooks/useCalculatePowerRange";
+import { PowerRange } from "./components/power-range/PowerRange";
+import { NoData } from "./components/table/NoData";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -39,33 +42,47 @@ function App() {
   const powerRange = useCalculatePowerRange(pokemonDataPerPage);
 
   return (
-    <>
-      <Box display="flex" flexDirection="row" gap="20px" width="100%">
-        <TextField
-          placeholder="Search..."
-          icon={<SearchIcon />}
-          value={searchValue}
-          setValue={setSearchValue}
-        />
-        <TextField
-          type="number"
-          placeholder="Power threshold"
-          icon={<WindPowerIcon />}
-          value={powerValue}
-          setValue={setPowerValue}
-        />
-      </Box>
+    <Container>
+      <Paper
+        sx={{
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "12px",
+          gap: "20px",
+          margin: "40px auto",
+        }}
+      >
+        <Grid container spacing={3}>
+          <Grid item md={6} xs={12}>
+            <TextField
+              placeholder="Search..."
+              icon={<SearchIcon />}
+              value={searchValue}
+              setValue={setSearchValue}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <TextField
+              type="number"
+              placeholder="Power threshold"
+              icon={<WindPowerIcon />}
+              value={powerValue}
+              setValue={setPowerValue}
+            />
+          </Grid>
+        </Grid>
 
-      <div>
-        Min Power: {powerRange[0]} | Max Power: {powerRange[1]}
-      </div>
-      {loading ? (
-        <Spinner />
-      ) : !pokemonDataPerPage?.length ? (
-        <NoData />
-      ) : (
+        <PowerRange powerRange={powerRange} />
+      </Paper>
+
+      {!loading && filteredData?.length ? (
         <>
-          <Table data={pokemonDataPerPage!} head={tableHead} />
+          <Table
+            data={pokemonDataPerPage!}
+            head={tableHead}
+            loading={loading}
+          />
           <PaginationBar
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
@@ -74,8 +91,10 @@ function App() {
             setItemsPerPage={setItemsPerPage}
           />
         </>
+      ) : (
+        <NoData />
       )}
-    </>
+    </Container>
   );
 }
 

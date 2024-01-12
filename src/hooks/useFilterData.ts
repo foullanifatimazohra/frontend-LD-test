@@ -9,13 +9,12 @@ const useFilterData = (
 ) => {
   const [filteredData, setFilteredData] = useState<PokemonType[]>();
   useEffect(() => {
-    const data = pokemonData?.filter(
-      (pokemon) =>
-        pokemon.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-        pokemon.power! >= powerValue
-    );
-    console.log(filteredData);
-    if (pokemonData.length) {
+    if (pokemonData.length > 0) {
+      const data = pokemonData?.filter(
+        (pokemon) =>
+          pokemon.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+          pokemon.power! >= powerValue
+      );
       setFilteredData(data);
       setCurrentPage(0);
     }

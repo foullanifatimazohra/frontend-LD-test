@@ -14,8 +14,7 @@ export const NoData: React.FC = () => {
     >
       <img src={NoDataImage} alt="No data found" width={200} height={200} />
       <Typography sx={{ textAlign: "center" }}>
-        {" "}
-        Il n'y a pas de données pour le moment
+        There is no data at the moment
       </Typography>
     </Box>
   );
