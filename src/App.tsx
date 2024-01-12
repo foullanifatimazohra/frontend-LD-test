@@ -16,12 +16,11 @@ import { calculatePowerRange } from "./utils/powerUtils";
 import { Box } from "@mui/material";
 import useFetchData from "./hooks/useFetchData";
 import useFilterData from "./hooks/useFilterData";
+import usePaginationData from "./hooks/usePaginationData";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [powerValue, setPowerValue] = useState<number>(0);
-
-  const [pokemonDataPerPage, setPokemonDataPerPage] = useState<PokemonType[]>();
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -31,18 +30,11 @@ function App() {
 
   const { loading, pokemonData, tableHead } = useFetchData();
   const filteredData = useFilterData(pokemonData, searchValue, powerValue);
-
-  // display data per page
-  useEffect(() => {
-    if (filteredData?.length) {
-      // calculate the start and the end index
-      const startIndex = currentPage * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      setPokemonDataPerPage(filteredData.slice(startIndex, endIndex));
-    } else {
-      setPokemonDataPerPage([]);
-    }
-  }, [filteredData, currentPage, itemsPerPage]);
+  const pokemonDataPerPage = usePaginationData(
+    filteredData,
+    currentPage,
+    itemsPerPage
+  );
 
   // calculate the min and max power per page
   useEffect(() => {
