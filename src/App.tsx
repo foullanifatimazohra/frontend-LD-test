@@ -14,47 +14,23 @@ import { getTableHead } from "./utils/tableUtils";
 import { calculatePower } from "./utils/calculatePower";
 import { calculatePowerRange } from "./utils/powerUtils";
 import { Box } from "@mui/material";
+import useFetchData from "./hooks/useFetchData";
+import useFilterData from "./hooks/useFilterData";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [powerValue, setPowerValue] = useState<number>();
-  const [pokemonData, setPokemonData] = useState<PokemonType[]>();
+  const [powerValue, setPowerValue] = useState<number>(0);
+
   const [pokemonDataPerPage, setPokemonDataPerPage] = useState<PokemonType[]>();
-  const [tableHead, setTableHead] = useState<string[]>();
+
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [filteredData, setFilteredData] = useState<PokemonType[]>();
+
   const [powerRange, setPowerRange] = useState<[number, number]>([0, 0]);
   // Todo :  create custom hook and refactor all the useEffect functions
 
-  // add loading state
-  const [loading, setLoading] = useState<Boolean>(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPokemonData();
-
-        if (data.length) {
-          // get the table head keys
-          const headKeys = getTableHead(data[0]);
-          if (headKeys) {
-            setTableHead(headKeys);
-          }
-          // calculate the power
-          const pokemonDataWithPower: PokemonType[] = data.map(
-            (pokemon: PokemonType) => {
-              return { ...pokemon, power: calculatePower(pokemon) };
-            }
-          );
-
-          setPokemonData(pokemonDataWithPower);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { loading, pokemonData, tableHead } = useFetchData();
+  const filteredData = useFilterData(pokemonData, searchValue, powerValue);
 
   // display data per page
   useEffect(() => {
@@ -63,6 +39,8 @@ function App() {
       const startIndex = currentPage * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       setPokemonDataPerPage(filteredData.slice(startIndex, endIndex));
+    } else {
+      setPokemonDataPerPage([]);
     }
   }, [filteredData, currentPage, itemsPerPage]);
 
@@ -71,26 +49,10 @@ function App() {
     if (pokemonDataPerPage?.length) {
       const range = calculatePowerRange(pokemonDataPerPage);
       setPowerRange(range);
+    } else {
+      setPowerRange([0, 0]);
     }
   }, [pokemonDataPerPage]);
-
-  // search value
-  useEffect(() => {
-    // Function to update filteredData based on the search term
-    const updateFilteredData = () => {
-      const normalizedSearchTerm = searchValue.toLowerCase();
-      const newFilteredData = pokemonData!
-        .filter((pokemon) =>
-          pokemon.name.toLowerCase().includes(normalizedSearchTerm)
-        )
-        .filter((pokemon) => powerValue && pokemon.power! >= powerValue);
-      setFilteredData(newFilteredData);
-    };
-
-    if (pokemonData?.length) {
-      updateFilteredData();
-    }
-  }, [searchValue, powerValue]);
 
   return (
     <>
