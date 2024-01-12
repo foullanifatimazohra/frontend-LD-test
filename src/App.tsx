@@ -4,15 +4,15 @@ import { useState } from "react";
 import { NoData } from "./components/table/NoData";
 import { Table } from "./components/table/Table";
 import { Spinner } from "./components/spinner/Spinner";
-import { useEffect } from "react";
+
 import WindPowerIcon from "@mui/icons-material/WindPower";
 import { PaginationBar } from "./components/table/PaginationBar";
 
-import { calculatePowerRange } from "./utils/powerUtils";
 import { Box } from "@mui/material";
 import useFetchData from "./hooks/useFetchData";
 import useFilterData from "./hooks/useFilterData";
 import usePaginationData from "./hooks/usePaginationData";
+import useCalculatePowerRange from "./hooks/useCalculatePowerRange";
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -21,8 +21,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
-  const [powerRange, setPowerRange] = useState<[number, number]>([0, 0]);
-  // Todo :  create custom hook and refactor all the useEffect functions
+  // Done :  create custom hook and refactor all the useEffect functions
 
   const { loading, pokemonData, tableHead } = useFetchData();
   const filteredData = useFilterData(
@@ -37,15 +36,7 @@ function App() {
     itemsPerPage
   );
 
-  // calculate the min and max power per page
-  useEffect(() => {
-    if (pokemonDataPerPage?.length) {
-      const range = calculatePowerRange(pokemonDataPerPage);
-      setPowerRange(range);
-    } else {
-      setPowerRange([0, 0]);
-    }
-  }, [pokemonDataPerPage]);
+  const powerRange = useCalculatePowerRange(pokemonDataPerPage);
 
   return (
     <>
