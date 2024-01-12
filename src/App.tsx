@@ -6,12 +6,8 @@ import { Table } from "./components/table/Table";
 import { Spinner } from "./components/spinner/Spinner";
 import { useEffect } from "react";
 import WindPowerIcon from "@mui/icons-material/WindPower";
-
-import { getPokemonData } from "./services/PokemonService";
 import { PaginationBar } from "./components/table/PaginationBar";
-import { PokemonType } from "./types/Pokemon";
-import { getTableHead } from "./utils/tableUtils";
-import { calculatePower } from "./utils/calculatePower";
+
 import { calculatePowerRange } from "./utils/powerUtils";
 import { Box } from "@mui/material";
 import useFetchData from "./hooks/useFetchData";
@@ -29,7 +25,12 @@ function App() {
   // Todo :  create custom hook and refactor all the useEffect functions
 
   const { loading, pokemonData, tableHead } = useFetchData();
-  const filteredData = useFilterData(pokemonData, searchValue, powerValue);
+  const filteredData = useFilterData(
+    pokemonData,
+    searchValue,
+    powerValue,
+    setCurrentPage
+  );
   const pokemonDataPerPage = usePaginationData(
     filteredData,
     currentPage,
