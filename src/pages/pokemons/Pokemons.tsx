@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Paper, Grid } from "@mui/material";
+import { Paper, Grid, Container } from "@mui/material";
 import { PowerRange } from "./PowerRange";
 import TextField from "../../components/text-field/TextField";
 //hooks
@@ -33,7 +33,7 @@ export const Pokemons = () => {
   const powerRange = useCalculatePowerRange(pokemonDataPerPage);
 
   return (
-    <>
+    <Container>
       <Paper
         sx={{
           padding: "20px",
@@ -76,6 +76,6 @@ export const Pokemons = () => {
         filteredData={filteredData!}
         pokemonDataPerPage={pokemonDataPerPage!}
       />
-    </>
+    </Container>
   );
 };
