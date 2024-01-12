@@ -16,7 +16,7 @@ export const PaginationBar = ({
   setItemsPerPage,
 }: PaginationBarProps) => {
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setCurrentPage(newPage);
