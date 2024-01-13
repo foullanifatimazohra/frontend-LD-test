@@ -2,8 +2,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { PokemonType } from "../types/Pokemon";
 import { getPokemonData } from "../services/PokemonService";
-import { getTableHead } from "../utils/tableUtils";
-import { calculatePower } from "../utils/calculatePower";
+import { getTableHead } from "../utils/TableUtils";
+import { calculatePower } from "../utils/powerUtils";
 
 interface PokemonContextProps {
   loading: boolean;
