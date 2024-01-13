@@ -15,6 +15,7 @@ export const Spinner = ({ width, height, color }: SpinnerProps) => {
       alignItems="center"
       justifyContent="center"
       height="20rem"
+      data-testid="spinner"
     >
       <CircularProgress
         sx={{
