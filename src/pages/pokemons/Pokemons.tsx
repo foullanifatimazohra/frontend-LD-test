@@ -1,36 +1,15 @@
-import { useState } from "react";
 import { Paper, Grid, Container } from "@mui/material";
 import { PowerRange } from "./PowerRange";
 import TextField from "../../components/text-field/TextField";
-//hooks
-import useFetchData from "../../hooks/useFetchData";
-import useFilterData from "../../hooks/useFilterData";
-import usePaginationData from "../../hooks/usePaginationData";
-import useCalculatePowerRange from "../../hooks/useCalculatePowerRange";
 //icons
 import WindPowerIcon from "@mui/icons-material/WindPower";
 import SearchIcon from "@mui/icons-material/Search";
 import { PokemonsList } from "./PokemonsList";
+import { usePokemonContext } from "../../contexts/PokemonContext";
 
 export const Pokemons = () => {
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [powerValue, setPowerValue] = useState<number>(0);
-  const { loading, pokemonData, tableHead } = useFetchData();
-  const filteredData = useFilterData(
-    pokemonData,
-    searchValue,
-    powerValue,
-    setCurrentPage
-  );
-  const pokemonDataPerPage = usePaginationData(
-    filteredData,
-    currentPage,
-    itemsPerPage
-  );
-
-  const powerRange = useCalculatePowerRange(pokemonDataPerPage);
+  const { searchValue, setSearchValue, powerValue, setPowerValue } =
+    usePokemonContext();
 
   return (
     <Container>
@@ -64,18 +43,9 @@ export const Pokemons = () => {
           </Grid>
         </Grid>
 
-        <PowerRange powerRange={powerRange} />
+        <PowerRange />
       </Paper>
-      <PokemonsList
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
-        loading={loading}
-        tableHead={tableHead!}
-        filteredData={filteredData!}
-        pokemonDataPerPage={pokemonDataPerPage!}
-      />
+      <PokemonsList />
     </Container>
   );
 };

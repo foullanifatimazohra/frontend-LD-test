@@ -1,39 +1,27 @@
 import { lazy } from "react";
-
+import { usePokemonContext } from "../../contexts/PokemonContext";
 //component
 import { Table } from "../../components/table/Table";
 import { PaginationBar } from "../../components/table/PaginationBar";
-import { PokemonType } from "../../types/Pokemon";
+import { Spinner } from "../../components/spinner/Spinner";
 const NoData = lazy(() =>
   import("../../components/table/NoData").then(({ NoData }) => ({
     default: NoData,
   }))
 );
 
-interface PokemonListProps {
-  currentPage: number;
-  itemsPerPage: number;
-  setCurrentPage: (value: number) => void;
-  setItemsPerPage: (value: number) => void;
-  pokemonDataPerPage: PokemonType[];
-  loading: boolean;
-  tableHead: string[];
-  filteredData: PokemonType[];
-}
+export const PokemonsList = () => {
+  const { currentPage, setCurrentPage, itemsPerPage, setItemsPerPage } =
+    usePokemonContext();
+  const { filteredData } = usePokemonContext();
+  const { loading, tableHead } = usePokemonContext();
+  const { pokemonDataPerPage } = usePokemonContext();
 
-export const PokemonsList = ({
-  currentPage,
-  itemsPerPage,
-  setCurrentPage,
-  setItemsPerPage,
-  pokemonDataPerPage,
-  loading,
-  tableHead,
-  filteredData,
-}: PokemonListProps) => {
-  return !loading && pokemonDataPerPage?.length ? (
+  return loading ? (
+    <Spinner />
+  ) : pokemonDataPerPage?.length ? (
     <>
-      <Table data={pokemonDataPerPage!} head={tableHead} loading={loading} />
+      <Table data={pokemonDataPerPage!} head={tableHead} />
       <PaginationBar
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

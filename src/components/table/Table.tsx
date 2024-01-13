@@ -7,18 +7,14 @@ import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
 import { Row } from "./Row";
 import { PokemonType } from "../../types/Pokemon";
-import { Spinner } from "../spinner/Spinner";
 
 interface TableProps {
   data: PokemonType[];
   head?: any;
-  loading: Boolean;
 }
 
-export const Table = ({ data, head, loading }: TableProps) => {
-  return loading ? (
-    <Spinner />
-  ) : (
+export const Table = ({ data, head }: TableProps) => {
+  return (
     <TableContainer component={Paper} sx={{ borderRadius: "12px" }}>
       <MUITable sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#F5F7F8" }}>
