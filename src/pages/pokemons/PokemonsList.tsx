@@ -37,7 +37,7 @@ export const PokemonsList = ({
       <PaginationBar
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        totalPages={filteredData?.length!}
+        count={filteredData?.length!}
         setCurrentPage={setCurrentPage}
         setItemsPerPage={setItemsPerPage}
       />

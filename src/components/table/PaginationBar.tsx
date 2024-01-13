@@ -3,7 +3,7 @@ import { TablePagination } from "@mui/material";
 interface PaginationBarProps {
   currentPage: number;
   itemsPerPage: number;
-  totalPages: number;
+  count: number;
   setCurrentPage: (value: number) => void;
   setItemsPerPage: (value: number) => void;
 }
@@ -11,7 +11,7 @@ interface PaginationBarProps {
 export const PaginationBar = ({
   currentPage,
   itemsPerPage,
-  totalPages,
+  count,
   setCurrentPage,
   setItemsPerPage,
 }: PaginationBarProps) => {
@@ -26,12 +26,11 @@ export const PaginationBar = ({
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setItemsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(0);
   };
   return (
     <TablePagination
       component="div"
-      count={totalPages}
+      count={count}
       page={currentPage}
       onPageChange={handleChangePage}
       rowsPerPage={itemsPerPage}
