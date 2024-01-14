@@ -5,7 +5,7 @@ import { getPokemonData } from "../services/PokemonService";
 import { getTableHead } from "../utils/tableUtils";
 import { calculatePower } from "../utils/powerUtils";
 
-interface PokemonContextProps {
+export interface PokemonContextProps {
   loading: boolean;
   pokemonData: PokemonType[];
   tableHead?: string[];
@@ -21,7 +21,7 @@ interface PokemonContextProps {
   setCurrentPage: (value: number) => void;
 }
 
-const PokemonContext = createContext<PokemonContextProps | undefined>(
+export const PokemonContext = createContext<PokemonContextProps | undefined>(
   undefined
 );
 

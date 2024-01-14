@@ -11,6 +11,7 @@ export const NoData: React.FC = () => {
       gap="10px"
       justifyContent="center"
       minHeight="20rem"
+      data-testid="no-data"
     >
       <img src={NoDataImage} alt="No data found" width={200} height={200} />
       <Typography sx={{ textAlign: "center" }}>

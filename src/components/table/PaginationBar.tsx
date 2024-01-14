@@ -29,6 +29,7 @@ export const PaginationBar = ({
   };
   return (
     <TablePagination
+      data-testid="pagination"
       component="div"
       count={count}
       page={currentPage}

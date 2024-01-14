@@ -15,7 +15,11 @@ interface TableProps {
 
 export const Table = ({ data, head }: TableProps) => {
   return (
-    <TableContainer component={Paper} sx={{ borderRadius: "12px" }}>
+    <TableContainer
+      component={Paper}
+      sx={{ borderRadius: "12px" }}
+      data-testid="table"
+    >
       <MUITable sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#F5F7F8" }}>
           <TableRow>
