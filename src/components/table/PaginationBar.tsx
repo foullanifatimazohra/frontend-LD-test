@@ -26,6 +26,7 @@ export const PaginationBar = ({
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setItemsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
   return (
     <TablePagination
