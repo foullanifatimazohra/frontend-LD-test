@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { PokemonType } from "../types/Pokemon";
 import { getPokemonData } from "../services/PokemonService";
-import { getTableHead } from "../utils/TableUtils";
+import { getTableHead } from "../utils/tableUtils";
 import { calculatePower } from "../utils/powerUtils";
 
 interface PokemonContextProps {
